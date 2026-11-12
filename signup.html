@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Kolachi Restaurant Karachi</title>
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="portal-body">
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" class="brand" style="justify-content:center; margin-bottom:12px;">
+          <div class="brand-icon"><i class="fa-solid fa-utensils"></i></div>
+        </a>
+        <h2>Join Kolachi Dining</h2>
+        <p>Register to order online, book seaside tables & earn dining rewards</p>
+      </div>
+
+      <div id="auth-alert" style="display:none; background:rgba(239, 68, 68, 0.15); border:1px solid #ef4444; color:#ef4444; padding:10px 14px; border-radius:8px; margin-bottom:20px; font-size:0.88rem;"></div>
+
+      <form id="signup-form">
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="reg-name">Full Name *</label>
+          <input type="text" id="reg-name" class="form-input" required placeholder="Syed Ammar">
+        </div>
+
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="reg-phone">Phone Number *</label>
+          <input type="tel" id="reg-phone" class="form-input" required placeholder="0300 1234567">
+        </div>
+
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="reg-email">Email Address *</label>
+          <input type="email" id="reg-email" class="form-input" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group" style="margin-bottom:24px;">
+          <label for="reg-password">Password (min 6 characters) *</label>
+          <input type="password" id="reg-password" class="form-input" required minlength="6" placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign In here</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './js/supabaseClient.js';
+
+    const form = document.getElementById('signup-form');
+    const alertBox = document.getElementById('auth-alert');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+
+      const full_name = document.getElementById('reg-name').value;
+      const phone = document.getElementById('reg-phone').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name,
+            phone,
+            role: 'customer'
+          }
+        }
+      });
+
+      if (error) {
+        alertBox.textContent = error.message;
+        alertBox.style.display = 'block';
+      } else {
+        alert('Account created successfully! Welcome to Kolachi.');
+        window.location.href = 'portal.html';
+      }
+    });
+  </script>
+</body>
+</html>

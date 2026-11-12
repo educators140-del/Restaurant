@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Portal | Kolachi Restaurant Karachi</title>
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="portal-body">
+
+  <!-- Portal Top Nav -->
+  <header class="portal-nav">
+    <div class="container portal-header-wrap">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div class="brand-text">
+          <h1>KOLACHI</h1>
+          <span>Customer Portal</span>
+        </div>
+      </a>
+
+      <div class="user-badge">
+        <span id="user-display-name" style="font-weight:600; color:var(--text-primary);">Kolachi Guest</span>
+        <div class="user-avatar" id="user-avatar-initials"><i class="fa-solid fa-user"></i></div>
+        <button id="portal-logout-btn" class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem; margin-left:12px;">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout: Sidebar + Main Content -->
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <button class="portal-tab-btn active" data-tab="place-order">
+        <i class="fa-solid fa-cart-shopping"></i> Place Food Order
+      </button>
+      <button class="portal-tab-btn" data-tab="my-orders">
+        <i class="fa-solid fa-clock-rotate-left"></i> My Orders & Status
+      </button>
+      <button class="portal-tab-btn" data-tab="reserve-table">
+        <i class="fa-solid fa-calendar-check"></i> Book Table
+      </button>
+      <a href="index.html" class="portal-tab-btn" style="margin-top:auto;">
+        <i class="fa-solid fa-arrow-left"></i> Back to Main Site
+      </a>
+    </aside>
+
+    <main class="portal-content">
+      <!-- 1. PLACE ORDER VIEW -->
+      <section id="tab-place-order" class="view-panel active">
+        <h2 class="panel-title">Checkout & Order Placement</h2>
+        <p class="panel-desc">Review your selected dishes, choose Dine-In, Takeaway, or Delivery, and submit directly to our kitchen.</p>
+
+        <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap:30px;">
+          <div class="data-card">
+            <h3 style="color:#fff; margin-bottom:18px; font-family:var(--font-serif);"><i class="fa-solid fa-receipt"></i> Order Details</h3>
+            
+            <form id="place-order-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="order-fullname">Full Name *</label>
+                  <input type="text" id="order-fullname" class="form-input" required placeholder="Syed Ammar">
+                </div>
+                <div class="form-group">
+                  <label for="order-phone">Phone Number *</label>
+                  <input type="tel" id="order-phone" class="form-input" required placeholder="0300 1234567">
+                </div>
+
+                <div class="form-group">
+                  <label for="order-type">Dining Mode *</label>
+                  <select id="order-type" class="form-select">
+                    <option value="dine_in">Dine-In (Floor 5, Ocean Mall)</option>
+                    <option value="takeout">Takeout / Self-Pickup</option>
+                    <option value="delivery">Home Delivery (Karachi)</option>
+                  </select>
+                </div>
+
+                <div class="form-group" id="table-number-group">
+                  <label for="order-table">Table / Deck Number (If Dine-in)</label>
+                  <input type="text" id="order-table" class="form-input" placeholder="e.g. Table 14 - Sea Deck">
+                </div>
+
+                <div class="form-group full-width" id="address-group" style="display:none;">
+                  <label for="order-address">Delivery Street Address</label>
+                  <input type="text" id="order-address" class="form-input" placeholder="House/Flat #, Street, Clifton Block 4, Karachi">
+                </div>
+
+                <div class="form-group">
+                  <label for="order-payment">Payment Method</label>
+                  <select id="order-payment" class="form-select">
+                    <option value="cash">Cash on Delivery / Counter</option>
+                    <option value="card">Card (Visa/Mastercard)</option>
+                    <option value="online">Online Transfer / JazzCash</option>
+                  </select>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="order-notes">Special Kitchen Instructions</label>
+                  <textarea id="order-notes" class="form-textarea" rows="2" placeholder="e.g. Less spicy karahi, extra mint chutney"></textarea>
+                </div>
+              </div>
+
+              <button type="submit" id="submit-order-btn" class="btn btn-primary" style="margin-top:24px; width:100%; padding:14px; font-size:1.05rem;">
+                <i class="fa-solid fa-paper-plane"></i> Confirm & Send Order to Kitchen
+              </button>
+            </form>
+          </div>
+
+          <!-- Order Summary Sidebar in Portal -->
+          <div>
+            <div class="data-card">
+              <h3 style="color:#fff; margin-bottom:16px; font-family:var(--font-serif);"><i class="fa-solid fa-basket-shopping"></i> Selected Dishes</h3>
+              <div id="portal-cart-list" style="display:flex; flex-direction:column; gap:12px; max-height:350px; overflow-y:auto; margin-bottom:18px;">
+                <!-- Populated from cart -->
+              </div>
+
+              <div style="border-top:1px solid var(--border-subtle); padding-top:14px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.9rem; color:var(--text-secondary);">
+                  <span>Subtotal:</span>
+                  <span id="portal-subtotal-val">Rs 0</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:14px; font-size:0.9rem; color:var(--text-secondary);">
+                  <span>GST / Service:</span>
+                  <span>Included</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:1.25rem; font-weight:800; color:var(--primary);">
+                  <span>Total Payable:</span>
+                  <span id="portal-total-val">Rs 0</span>
+                </div>
+              </div>
+              <a href="index.html#menu" class="btn btn-outline" style="width:100%; margin-top:18px; font-size:0.85rem;">
+                <i class="fa-solid fa-plus"></i> Add More Dishes from Menu
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. MY ORDERS VIEW -->
+      <section id="tab-my-orders" class="view-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <h2 class="panel-title">My Order History</h2>
+            <p class="panel-desc">Track status in real-time as our chefs grill and serve your meal.</p>
+          </div>
+          <button id="refresh-my-orders-btn" class="btn btn-outline" style="padding:6px 14px; font-size:0.85rem;">
+            <i class="fa-solid fa-arrows-rotate"></i> Refresh
+          </button>
+        </div>
+
+        <div class="data-card">
+          <div style="overflow-x:auto;">
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Customer</th>
+                  <th>Dining Mode</th>
+                  <th>Items Ordered</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Placed At</th>
+                </tr>
+              </thead>
+              <tbody id="user-orders-tbody">
+                <tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">Loading your orders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TABLE RESERVATIONS -->
+      <section id="tab-reserve-table" class="view-panel">
+        <h2 class="panel-title">Reserve a Table</h2>
+        <p class="panel-desc">Book your front-row seat for sunset and night skyline dining at Floor 5, Ocean Mall, Clifton.</p>
+
+        <div class="data-card" style="max-width:650px;">
+          <form id="reservation-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Date *</label>
+                <input type="date" id="res-date" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label>Time *</label>
+                <input type="time" id="res-time" class="form-input" value="19:30" required>
+              </div>
+              <div class="form-group">
+                <label>Number of Guests *</label>
+                <input type="number" id="res-guests" class="form-input" min="1" max="50" value="4" required>
+              </div>
+              <div class="form-group">
+                <label>Seating Preference</label>
+                <select id="res-preference" class="form-select">
+                  <option value="waterfront">Waterfront Sea View Deck</option>
+                  <option value="indoor_aircon">Indoor Air-Conditioned Hall</option>
+                  <option value="family_section">Exclusive Family Section</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label>Special Requests</label>
+                <textarea id="res-notes" class="form-textarea" rows="2" placeholder="Anniversary celebration, birthday, etc."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:20px; width:100%;">
+              <i class="fa-solid fa-check"></i> Book Reservation
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const K = window.Kolachi;
+
+    // Check direct query parameter if user clicked "Order Food" link
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderItemId = urlParams.get('orderItem');
+    if (orderItemId) {
+      const sampleItem = (K.MENU_DATA || []).find(m => m.id === orderItemId);
+      if (sampleItem) {
+        K.addToCart({ id: sampleItem.id, name: sampleItem.name, price: sampleItem.price });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabs();
+      setupOrderTypeChange();
+      renderPortalCart();
+      loadUserOrders();
+
+      document.getElementById('place-order-form')?.addEventListener('submit', handlePlaceOrder);
+      document.getElementById('refresh-my-orders-btn')?.addEventListener('click', loadUserOrders);
+      document.getElementById('reservation-form')?.addEventListener('submit', handleReservationSubmit);
+      document.getElementById('portal-logout-btn')?.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    });
+
+    function initTabs() {
+      const tabs = document.querySelectorAll('.portal-tab-btn[data-tab]');
+      tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          btn.classList.add('active');
+
+          const target = btn.getAttribute('data-tab');
+          document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+          document.getElementById('tab-' + target)?.classList.add('active');
+
+          if (target === 'my-orders') loadUserOrders();
+        });
+      });
+    }
+
+    function setupOrderTypeChange() {
+      const select = document.getElementById('order-type');
+      const tableGroup = document.getElementById('table-number-group');
+      const addressGroup = document.getElementById('address-group');
+
+      select?.addEventListener('change', (e) => {
+        if (e.target.value === 'delivery') {
+          addressGroup.style.display = 'flex';
+          tableGroup.style.display = 'none';
+        } else if (e.target.value === 'dine_in') {
+          addressGroup.style.display = 'none';
+          tableGroup.style.display = 'flex';
+        } else {
+          addressGroup.style.display = 'none';
+          tableGroup.style.display = 'none';
+        }
+      });
+    }
+
+    function renderPortalCart() {
+      const list = document.getElementById('portal-cart-list');
+      const subtotalEl = document.getElementById('portal-subtotal-val');
+      const totalEl = document.getElementById('portal-total-val');
+      const cart = K.getCart();
+
+      if (!list) return;
+
+      if (cart.length === 0) {
+        list.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem; text-align:center; padding:20px;">No items in cart yet. Select dishes from the menu.</p>`;
+        subtotalEl.textContent = 'Rs 0';
+        totalEl.textContent = 'Rs 0';
+        return;
+      }
+
+      list.innerHTML = cart.map(item => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+          <div>
+            <strong style="color:#fff; font-size:0.92rem;">${item.name}</strong>
+            <div style="font-size:0.8rem; color:var(--primary);">Rs ${item.price.toLocaleString()} × ${item.quantity}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button class="qty-btn" data-id="${item.id}" data-action="dec">-</button>
+            <span style="font-weight:700;">${item.quantity}</span>
+            <button class="qty-btn" data-id="${item.id}" data-action="inc">+</button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      subtotalEl.textContent = `Rs ${total.toLocaleString()}`;
+      totalEl.textContent = `Rs ${total.toLocaleString()}`;
+
+      list.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const action = btn.getAttribute('data-action');
+          let currentCart = K.getCart();
+          const found = currentCart.find(i => i.id === id);
+          if (found) {
+            found.quantity += (action === 'inc' ? 1 : -1);
+            if (found.quantity <= 0) {
+              currentCart = currentCart.filter(i => i.id !== id);
+            }
+          }
+          K.saveCart(currentCart);
+          renderPortalCart();
+        });
+      });
+    }
+
+    async function handlePlaceOrder(e) {
+      e.preventDefault();
+      const cart = K.getCart();
+      if (cart.length === 0) {
+        alert('Your cart is empty! Please click on "+ Add" or "Order Food" on any menu item first.');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-order-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting to Kitchen...';
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const orderNumber = 'KOL-' + Math.floor(100000 + Math.random() * 900000);
+
+      const orderBody = {
+        order_number: orderNumber,
+        customer_name: document.getElementById('order-fullname').value,
+        customer_phone: document.getElementById('order-phone').value,
+        order_type: document.getElementById('order-type').value,
+        table_number: document.getElementById('order-table')?.value || null,
+        delivery_address: document.getElementById('order-address')?.value || null,
+        payment_method: document.getElementById('order-payment')?.value || 'cash',
+        special_instructions: document.getElementById('order-notes')?.value || '',
+        total_amount: total,
+        status: 'pending',
+        payment_status: 'unpaid'
+      };
+
+      try {
+        // 1. Insert order record into Supabase
+        const orderResult = await K.supabaseRest('orders', {
+          method: 'POST',
+          body: JSON.stringify(orderBody)
+        });
+
+        const createdOrder = Array.isArray(orderResult) ? orderResult[0] : orderResult;
+        const orderId = createdOrder.id;
+
+        // 2. Insert items list into order_items
+        const itemsPayload = cart.map(item => ({
+          order_id: orderId,
+          item_name: item.name,
+          quantity: item.quantity,
+          unit_price: item.price,
+          subtotal: item.price * item.quantity
+        }));
+
+        await K.supabaseRest('order_items', {
+          method: 'POST',
+          body: JSON.stringify(itemsPayload)
+        });
+
+        // 3. Clear cart & show confirmation
+        K.saveCart([]);
+        renderPortalCart();
+        K.showToast(`Order #${orderNumber} received by Supabase!`);
+        alert(`Success! Order #${orderNumber} has been received in Supabase database! Our kitchen staff is preparing your meal.`);
+
+        // Switch to "My Orders" tab
+        document.querySelector('[data-tab="my-orders"]')?.click();
+      } catch (err) {
+        console.error('Order error:', err);
+        alert('Order submission failed: ' + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Confirm & Send Order to Kitchen';
+      }
+    }
+
+    async function loadUserOrders() {
+      const tbody = document.getElementById('user-orders-tbody');
+      if (!tbody) return;
+
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Fetching live orders from Supabase...</td></tr>`;
+
+      try {
+        const orders = await K.supabaseRest('orders?select=*,order_items(*)&order=created_at.desc');
+        if (!orders || orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">No orders found in database yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = orders.map(ord => {
+          const itemsSummary = (ord.order_items || []).map(i => `${i.quantity}x ${i.item_name}`).join(', ') || 'Custom Feast';
+          const dateStr = new Date(ord.created_at).toLocaleString();
+          return `
+            <tr>
+              <td><strong>#${ord.order_number}</strong></td>
+              <td>${ord.customer_name}<br><span style="font-size:0.78rem; color:var(--text-muted);">${ord.customer_phone}</span></td>
+              <td style="text-transform:capitalize;">${ord.order_type.replace('_', ' ')} ${ord.table_number ? '(' + ord.table_number + ')' : ''}</td>
+              <td style="max-width:280px; font-size:0.85rem; color:var(--text-secondary);">${itemsSummary}</td>
+              <td><strong>Rs ${Number(ord.total_amount).toLocaleString()}</strong></td>
+              <td><span class="badge-status status-${ord.status}">${ord.status}</span></td>
+              <td style="font-size:0.82rem; color:var(--text-muted);">${dateStr}</td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#ef4444; padding:30px;">Error loading orders: ${err.message}</td></tr>`;
+      }
+    }
+
+    async function handleReservationSubmit(e) {
+      e.preventDefault();
+      const resPayload = {
+        guest_name: document.getElementById('order-fullname')?.value || 'Guest',
+        guest_phone: document.getElementById('order-phone')?.value || '03001234567',
+        guest_email: 'guest@kolachi.pk',
+        reservation_date: document.getElementById('res-date').value,
+        reservation_time: document.getElementById('res-time').value,
+        guests_count: parseInt(document.getElementById('res-guests').value),
+        seating_preference: document.getElementById('res-preference').value,
+        notes: document.getElementById('res-notes').value
+      };
+
+      try {
+        await K.supabaseRest('reservations', {
+          method: 'POST',
+          body: JSON.stringify([resPayload])
+        });
+        alert('Table reservation saved in Supabase! We look forward to hosting you at Floor 5, Ocean Mall.');
+        document.getElementById('reservation-form').reset();
+      } catch (err) {
+        alert('Reservation error: ' + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

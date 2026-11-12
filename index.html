@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kolachi Restaurant Karachi | Spirit of Karachi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div class="brand-text">
+          <h1>KOLACHI</h1>
+          <span>Spirit of Karachi</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#hours">Hours & Location</a></li>
+        <li><a href="portal.html">Customer Portal</a></li>
+        <li><a href="admin.html" style="color:var(--text-muted); font-size:0.85rem;"><i class="fa-solid fa-lock"></i> Staff Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="open-cart-btn" class="cart-btn-trigger">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Cart</span>
+          <span class="cart-badge">0</span>
+        </button>
+        <div id="nav-auth-container">
+          <a href="login.html" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.85rem;">Sign In</a>
+          <a href="portal.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Place Order</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <i class="fa-solid fa-crown"></i> Clifton Ocean Mall • Karachi
+        </div>
+        <h2 class="hero-title">Experience the <span>Magic of Seaside</span> Dining</h2>
+        <p class="hero-desc">
+          Contemporary choice for a global spread of breakfast, lunch & dinner fare alongside waterfront views. Renowned for Karachi's tastiest BBQ, tender handis, fresh Arabian sea fish, and sizzling steaks.
+        </p>
+
+        <div class="hero-meta">
+          <div class="meta-pill">
+            <i class="fa-solid fa-star" style="color:#fbbf24;"></i>
+            <strong>4.5</strong> (7,849+ Reviews)
+          </div>
+          <div class="meta-pill">
+            <i class="fa-solid fa-wallet"></i>
+            Rs 2,000 – 8,000 / person
+          </div>
+          <div class="meta-pill">
+            <i class="fa-solid fa-bowl-food"></i>
+            Dine-in • Takeout • Delivery
+          </div>
+        </div>
+
+        <div class="hero-btns">
+          <a href="#menu" class="btn btn-primary">
+            <i class="fa-solid fa-utensils"></i> Explore Menu & Order
+          </a>
+          <a href="portal.html" class="btn btn-outline">
+            <i class="fa-solid fa-mobile-screen-button"></i> Customer Portal
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-feature-box">
+          <div class="card-rating-head">
+            <div class="rating-badge">4.5 <i class="fa-solid fa-star" style="font-size:0.9rem;"></i></div>
+            <div>
+              <div class="rating-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <p class="rating-text">Based on 7,849 verified diners on Google</p>
+            </div>
+          </div>
+
+          <div class="quick-stats">
+            <div class="stat-item">
+              <span>Opening Hours</span>
+              <strong>5:00 PM – Late</strong>
+            </div>
+            <div class="stat-item">
+              <span>Location</span>
+              <strong>Floor 5, Ocean Mall</strong>
+            </div>
+            <div class="stat-item">
+              <span>Cuisine</span>
+              <strong>Authentic Pakistani & BBQ</strong>
+            </div>
+            <div class="stat-item">
+              <span>Direct Phone</span>
+              <strong>+92 21 111 111 001</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-pad" style="background: rgba(18, 24, 38, 0.4);">
+    <div class="container">
+      <div class="section-head">
+        <span class="sec-subtitle">The Kolachi Tradition</span>
+        <h2 class="sec-title">Karachi's Waterfront Gastronomy</h2>
+        <p class="sec-desc">
+          Kolachi Restaurant is an amazing place with delicious food, a beautiful atmosphere, and very friendly service. The waterfront sea view makes the experience even better. Our BBQ, karahi, and seafood are always fresh, cooked over glowing charcoal by master ustaads.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section with Live Ordering -->
+  <section id="menu" class="section-pad">
+    <div class="container">
+      <div class="section-head">
+        <span class="sec-subtitle">Chef's Curations</span>
+        <h2 class="sec-title">Order Your Favorites</h2>
+        <p class="sec-desc">Click on any dish to add to your order cart. Ready for Dine-in, Takeout, or Express Delivery.</p>
+      </div>
+
+      <div class="menu-controls">
+        <div class="menu-search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="menu-search" placeholder="Search Dynamite Prawns, Mutton Karahi, Sajji...">
+        </div>
+
+        <div class="category-tabs">
+          <button class="cat-tab-btn active" data-cat="all"><i class="fa-solid fa-border-all"></i> All Dishes</button>
+          <button class="cat-tab-btn" data-cat="bbq-kebabs"><i class="fa-solid fa-fire-burner"></i> BBQ & Kebabs</button>
+          <button class="cat-tab-btn" data-cat="karahi-handi"><i class="fa-solid fa-utensils"></i> Karahi & Handi</button>
+          <button class="cat-tab-btn" data-cat="seafood"><i class="fa-solid fa-fish"></i> Seafood Special</button>
+          <button class="cat-tab-btn" data-cat="steaks"><i class="fa-solid fa-drumstick-bite"></i> Steaks</button>
+          <button class="cat-tab-btn" data-cat="breads-rice"><i class="fa-solid fa-bowl-rice"></i> Naan & Rice</button>
+          <button class="cat-tab-btn" data-cat="desserts-drinks"><i class="fa-solid fa-ice-cream"></i> Desserts & Drinks</button>
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div id="menu-grid" class="menu-grid">
+        <!-- Static Fallback Items rendered for instant display & SEO, enhanced dynamically by js/menu.js -->
+        
+        <!-- 1. Dynamite Prawns -->
+        <div class="food-card" data-category="seafood">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=700" alt="Dynamite Prawns" loading="lazy">
+            <span class="food-badge">Popular</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Dynamite Prawns</h3>
+            <p class="food-desc">Crispy golden fried Arabian sea king prawns tossed in Kolachi secret spicy tangy dynamite glaze.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 2,350</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f1" data-name="Dynamite%20Prawns" data-price="2350">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f1" class="order-now-link" data-id="f1" data-name="Dynamite%20Prawns" data-price="2350">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Hunzai Mutton Kebab -->
+        <div class="food-card" data-category="bbq-kebabs">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700" alt="Hunzai Mutton Kebab" loading="lazy">
+            <span class="food-badge">Popular</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Hunzai Mutton Kebab</h3>
+            <p class="food-desc">Signature tender minced mutton kebabs prepared in indigenous Hunza mountain herbs & melted butter.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 2,490</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f4" data-name="Hunzai%20Mutton%20Kebab" data-price="2490">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f4" class="order-now-link" data-id="f4" data-name="Hunzai%20Mutton%20Kebab" data-price="2490">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Peshawari Mutton Karahi -->
+        <div class="food-card" data-category="karahi-handi">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=700" alt="Peshawari Mutton Karahi" loading="lazy">
+            <span class="food-badge">Top Rated</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Peshawari Mutton Karahi</h3>
+            <p class="food-desc">Tender fresh mutton simmered in ripe tomatoes, green chillies & crushed black pepper (1/2 kg).</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 2,950</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f8" data-name="Peshawari%20Mutton%20Karahi" data-price="2950">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f8" class="order-now-link" data-id="f8" data-name="Peshawari%20Mutton%20Karahi" data-price="2950">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Kolachi Sajji Platter -->
+        <div class="food-card" data-category="bbq-kebabs">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=700" alt="Kolachi Sajji Platter" loading="lazy">
+            <span class="food-badge">Bestseller</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Kolachi Sajji Platter</h3>
+            <p class="food-desc">Charcoal roasted Balochi spiced whole chicken served over fragrant steam rice with spicy tomato gravy.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 2,850</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f5" data-name="Kolachi%20Sajji%20Platter" data-price="2850">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f5" class="order-now-link" data-id="f5" data-name="Kolachi%20Sajji%20Platter" data-price="2850">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Chicken Malai Boti -->
+        <div class="food-card" data-category="bbq-kebabs">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700" alt="Chicken Malai Boti" loading="lazy">
+            <span class="food-badge">Must Try</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Chicken Malai Boti</h3>
+            <p class="food-desc">Melt-in-mouth boneless chicken cubes marinated in fresh clotted cream, green chillies & mild spices.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 1,650</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f6" data-name="Chicken%20Malai%20Boti" data-price="1650">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f6" class="order-now-link" data-id="f6" data-name="Chicken%20Malai%20Boti" data-price="1650">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Kolachi Deck Tenderloin Steak -->
+        <div class="food-card" data-category="steaks">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700" alt="Kolachi Deck Tenderloin Steak" loading="lazy">
+            <span class="food-badge">Premium</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Kolachi Deck Tenderloin Steak</h3>
+            <p class="food-desc">Prime aged beef undercut with wild mushroom sauce, creamy mashed potatoes & sauteed vegetables.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 3,350</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f11" data-name="Kolachi%20Deck%20Tenderloin%20Steak" data-price="3350">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f11" class="order-now-link" data-id="f11" data-name="Kolachi%20Deck%20Tenderloin%20Steak" data-price="3350">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Garlic Cheese Naan -->
+        <div class="food-card" data-category="breads-rice">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=700" alt="Garlic Cheese Naan" loading="lazy">
+            <span class="food-badge">Freshly Baked</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Garlic Cheese Naan</h3>
+            <p class="food-desc">Oven-fresh tandoori naan stuffed with melting mozzarella & cheddar, glazed with garlic cilantro butter.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 450</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f14" data-name="Garlic%20Cheese%20Naan" data-price="450">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f14" class="order-now-link" data-id="f14" data-name="Garlic%20Cheese%20Naan" data-price="450">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Kolachi Sea Breeze Mint Lemonade -->
+        <div class="food-card" data-category="desserts-drinks">
+          <div class="food-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=700" alt="Kolachi Sea Breeze Mint Lemonade" loading="lazy">
+            <span class="food-badge">Chilled</span>
+            <span class="food-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          </div>
+          <div class="food-card-body">
+            <h3 class="food-title">Kolachi Sea Breeze Mint Lemonade</h3>
+            <p class="food-desc">Crushed garden mint leaves, fresh lime juice, sparkling soda and pink rock salt.</p>
+            <div class="food-footer">
+              <div class="food-price">
+                <span class="curr">Price</span>
+                <span class="val">Rs 490</span>
+              </div>
+              <div class="food-action-btns">
+                <button class="add-cart-btn" data-id="f16" data-name="Kolachi%20Sea%20Breeze%20Mint%20Lemonade" data-price="490">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+                <a href="portal.html?orderItem=f16" class="order-now-link" data-id="f16" data-name="Kolachi%20Sea%20Breeze%20Mint%20Lemonade" data-price="490">
+                  <i class="fa-solid fa-bolt"></i> Order Food
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Verified Reviews -->
+  <section id="reviews" class="section-pad" style="background: rgba(18, 24, 38, 0.4);">
+    <div class="container">
+      <div class="section-head">
+        <span class="sec-subtitle">Visitor Voices</span>
+        <h2 class="sec-title">Loved by Thousands of Diners</h2>
+        <p class="sec-desc">Real feedback from guests enjoying the panoramic Karachi sea breeze & sizzling delicacies.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <i class="fa-solid fa-quote-right review-quote-icon"></i>
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">"Kolachi Restaurant is an amazing place with delicious food, a beautiful atmosphere, and very friendly service. The waterfront view makes the experience even better. Their BBQ, karahi, and seafood are always tasty and fresh!"</p>
+          <div class="reviewer-meta">
+            <div class="reviewer-avatar">SA</div>
+            <div>
+              <div class="reviewer-name">Syed Ammar Hassan</div>
+              <div class="reviewer-sub">Local Guide • 54 reviews</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <i class="fa-solid fa-quote-right review-quote-icon"></i>
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">"We had the opportunity to enjoy a company-arranged dinner at Kulachi Hotel Karachi, and the entire experience was outstanding from start to finish. The Dynamite Prawns and Peshawari Karahi are unparalleled."</p>
+          <div class="reviewer-meta">
+            <div class="reviewer-avatar">AK</div>
+            <div>
+              <div class="reviewer-name">Adeel Khan</div>
+              <div class="reviewer-sub">Local Guide • 83 reviews</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <i class="fa-solid fa-quote-right review-quote-icon"></i>
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">"Kolachi restaurant is a great place with a very nice view and facilities. The service is pretty good and they always make sure everything is going well. Hunzai Mutton Kebab is an absolute must."</p>
+          <div class="reviewer-meta">
+            <div class="reviewer-avatar">AC</div>
+            <div>
+              <div class="reviewer-name">Andini Claudia</div>
+              <div class="reviewer-sub">Local Guide • 146 reviews</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Hours -->
+  <section id="hours" class="section-pad">
+    <div class="container">
+      <div class="section-head">
+        <span class="sec-subtitle">Visit Us</span>
+        <h2 class="sec-title">Location & Contact</h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+        <div class="data-card" style="margin-bottom:0;">
+          <h3 style="color:var(--primary); margin-bottom:12px;"><i class="fa-solid fa-location-dot"></i> Address</h3>
+          <p style="color:var(--text-secondary);">5th Floor, Ocean Towers (The Ocean Mall), Khayaban-e-Iqbal, Block 9 Clifton, Karachi, 75600, Pakistan</p>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">Plus Code: R2FP+H7 Clifton, Karachi</p>
+          <a href="https://maps.app.goo.gl/H3ZETtmaeUqD7mZK8" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="margin-top:14px; padding:6px 14px; font-size:0.82rem; display:inline-flex;">
+            <i class="fa-solid fa-diamond-turn-right"></i> Open in Google Maps
+          </a>
+        </div>
+        <div class="data-card" style="margin-bottom:0;">
+          <h3 style="color:var(--primary); margin-bottom:12px;"><i class="fa-solid fa-clock"></i> Timings</h3>
+          <p style="color:var(--text-secondary);">Daily Evening: 5:00 PM – Late Night</p>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">Breakfast, Lunch & Dinner Buffets / Dine-in</p>
+        </div>
+        <div class="data-card" style="margin-bottom:0;">
+          <h3 style="color:var(--primary); margin-bottom:12px;"><i class="fa-solid fa-phone"></i> Reservations & Help</h3>
+          <p style="color:var(--text-secondary); font-size:1.1rem; font-weight:700;">+92 21 111 111 001</p>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:8px;">Average spend: Rs 2,000 – 8,000 per person</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide-out Cart Drawer -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-head">
+      <h3>Your Kolachi Feast</h3>
+      <button id="close-cart-btn" class="close-cart-btn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cart-items-list" class="cart-items-wrap">
+      <!-- Items dynamically populated -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Total:</span>
+        <span id="cart-total-value">Rs 0</span>
+      </div>
+      <button id="checkout-btn" class="btn btn-primary" style="width:100%;">
+        <i class="fa-solid fa-arrow-right"></i> Proceed to Customer Portal
+      </button>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>KOLACHI RESTAURANT</h4>
+        <p>A contemporary waterfront dining jewel in Clifton, Karachi. Cherished by over 7,800 reviewers for charcoal BBQ, sea view, and genuine hospitality.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Kolachi</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+          <li><a href="portal.html">Customer Portal</a></li>
+          <li><a href="admin.html">Admin Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Service Modes</h4>
+        <ul class="footer-links">
+          <li><a href="portal.html">Dine-In Reservation</a></li>
+          <li><a href="portal.html">Express Takeout</a></li>
+          <li><a href="portal.html">Home Delivery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <p>Floor 5, The Ocean Mall, Clifton, Karachi</p>
+        <p><i class="fa-solid fa-phone" style="color:var(--primary); margin-right:8px;"></i>+92 21 111 111 001</p>
+        <p style="margin-top:10px;"><a href="https://maps.app.goo.gl/H3ZETtmaeUqD7mZK8" target="_blank" rel="noopener noreferrer" style="color:var(--primary); font-size:0.85rem;"><i class="fa-solid fa-map-location-dot"></i> View on Google Maps &rarr;</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kolachi Restaurant Karachi. Powered by Supabase Backend.</p>
+    </div>
+  </footer>
+
+  <script src="js/core.js"></script>
+  <script src="js/supabase.umd.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

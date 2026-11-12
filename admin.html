@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Admin Dashboard | Kolachi Restaurant</title>
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="portal-body">
+
+  <header class="portal-nav" style="border-bottom: 2px solid var(--primary);">
+    <div class="container portal-header-wrap">
+      <div class="brand">
+        <div class="brand-icon" style="background:#ef4444;"><i class="fa-solid fa-kitchen-set"></i></div>
+        <div class="brand-text">
+          <h1>KOLACHI</h1>
+          <span style="color:#ef4444;">Kitchen & Management Admin</span>
+        </div>
+      </div>
+
+      <div class="user-badge">
+        <span id="admin-user-display" style="font-weight:700; color:var(--primary);">Staff Admin</span>
+        <button id="admin-logout-btn" class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem; margin-left:12px;">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="portal-layout">
+    <aside class="portal-sidebar">
+      <button class="portal-tab-btn active" data-tab="live-orders">
+        <i class="fa-solid fa-bell"></i> Live Kitchen Orders
+      </button>
+      <button class="portal-tab-btn" data-tab="manage-menu">
+        <i class="fa-solid fa-utensils"></i> Manage & Add Dishes
+      </button>
+      <button class="portal-tab-btn" data-tab="all-reservations">
+        <i class="fa-solid fa-calendar-days"></i> Table Reservations
+      </button>
+      <a href="portal.html" class="portal-tab-btn">
+        <i class="fa-solid fa-user"></i> Customer View
+      </a>
+      <a href="index.html" class="portal-tab-btn">
+        <i class="fa-solid fa-globe"></i> Website Main
+      </a>
+    </aside>
+
+    <main class="portal-content">
+      <!-- 1. LIVE ORDERS -->
+      <section id="tab-live-orders" class="view-panel active">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div>
+            <h2 class="panel-title">Incoming Customer Orders</h2>
+            <p class="panel-desc">Orders received in Supabase database in real-time.</p>
+          </div>
+          <button id="refresh-orders-btn" class="btn btn-outline" style="padding:8px 14px; font-size:0.85rem;">
+            <i class="fa-solid fa-arrows-rotate"></i> Refresh Orders
+          </button>
+        </div>
+
+        <div class="data-card">
+          <div style="overflow-x:auto;">
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Customer Info</th>
+                  <th>Dining Mode & Location</th>
+                  <th>Dishes</th>
+                  <th>Total</th>
+                  <th>Current Status</th>
+                  <th>Update Status</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-tbody">
+                <tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">Loading live orders from Supabase...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. ADD & MANAGE FOOD ITEMS -->
+      <section id="tab-manage-menu" class="view-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div>
+            <h2 class="panel-title">Add & Manage Menu Dishes</h2>
+            <p class="panel-desc">Add new food items directly to the database. They will appear live on the website immediately.</p>
+          </div>
+        </div>
+
+        <!-- Add Food Item Form Card -->
+        <div class="data-card" style="margin-bottom:30px;">
+          <h3 style="color:#fff; margin-bottom:18px; font-family:var(--font-serif);"><i class="fa-solid fa-circle-plus" style="color:var(--primary);"></i> Add New Dish</h3>
+          
+          <form id="add-dish-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="dish-name">Dish Name *</label>
+                <input type="text" id="dish-name" class="form-input" required placeholder="e.g. Kolachi Chicken Karahi">
+              </div>
+
+              <div class="form-group">
+                <label for="dish-price">Price (PKR) *</label>
+                <input type="number" id="dish-price" class="form-input" required min="1" placeholder="e.g. 2150">
+              </div>
+
+              <div class="form-group">
+                <label for="dish-category">Category *</label>
+                <select id="dish-category" class="form-select">
+                  <option value="">Select Category...</option>
+                  <!-- Populated from database -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="dish-badge">Badge / Tag (Optional)</label>
+                <input type="text" id="dish-badge" class="form-input" placeholder="e.g. Chef Special, Must Try, Popular">
+              </div>
+
+              <div class="form-group full-width">
+                <label for="dish-image">Photo Image URL *</label>
+                <input type="url" id="dish-image" class="form-input" required placeholder="https://images.unsplash.com/photo-...">
+                <span style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Tip: Paste any high-quality food image URL (Unsplash, Google, or your CDN).</span>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="dish-desc">Dish Description *</label>
+                <textarea id="dish-desc" class="form-textarea" rows="2" required placeholder="Brief description of flavors, ingredients, serving size (e.g. 1/2 kg, cooked in pure desi ghee)."></textarea>
+              </div>
+            </div>
+
+            <button type="submit" id="save-dish-btn" class="btn btn-primary" style="margin-top:20px; padding:12px 24px;">
+              <i class="fa-solid fa-plus"></i> Add Dish to Website Menu
+            </button>
+          </form>
+        </div>
+
+        <!-- Current Live Dishes List -->
+        <div class="data-card">
+          <h3 style="color:#fff; margin-bottom:16px; font-family:var(--font-serif);"><i class="fa-solid fa-list"></i> Current Menu Items in Database</h3>
+          <div style="overflow-x:auto;">
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>Dish Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Badge</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-dishes-tbody">
+                <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">Loading menu items...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. RESERVATIONS -->
+      <section id="tab-all-reservations" class="view-panel">
+        <h2 class="panel-title">Upcoming Table Reservations</h2>
+        <p class="panel-desc">Guest bookings at Floor 5, Ocean Mall Clifton.</p>
+
+        <div class="data-card">
+          <div style="overflow-x:auto;">
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>Guest Name</th>
+                  <th>Contact</th>
+                  <th>Date & Time</th>
+                  <th>Guests</th>
+                  <th>Section</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="admin-reservations-tbody">
+                <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">Loading reservations from Supabase...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const K = window.Kolachi;
+    let categoriesList = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('refresh-orders-btn')?.addEventListener('click', loadAdminOrders);
+      document.getElementById('add-dish-form')?.addEventListener('submit', handleAddDish);
+      document.getElementById('admin-logout-btn')?.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+
+      const tabs = document.querySelectorAll('.portal-tab-btn[data-tab]');
+      tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          btn.classList.add('active');
+          const target = btn.getAttribute('data-tab');
+          document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+          document.getElementById('tab-' + target)?.classList.add('active');
+          
+          if (target === 'all-reservations') loadReservations();
+          if (target === 'manage-menu') loadDishes();
+        });
+      });
+
+      await loadCategories();
+      loadAdminOrders();
+      loadDishes();
+      setInterval(loadAdminOrders, 10000);
+    });
+
+    // Load categories for dropdown
+    async function loadCategories() {
+      try {
+        const cats = await K.supabaseRest('categories?order=display_order.asc');
+        categoriesList = cats || [];
+        const select = document.getElementById('dish-category');
+        if (select && categoriesList.length > 0) {
+          select.innerHTML = '<option value="">Select Category...</option>' + 
+            categoriesList.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        }
+      } catch (err) {
+        console.warn('Error fetching categories:', err);
+      }
+    }
+
+    // Add New Dish Handler
+    async function handleAddDish(e) {
+      e.preventDefault();
+      const saveBtn = document.getElementById('save-dish-btn');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving to Database...';
+
+      const categoryVal = document.getElementById('dish-category').value;
+      const dishPayload = {
+        name: document.getElementById('dish-name').value.trim(),
+        price: parseFloat(document.getElementById('dish-price').value),
+        category_id: categoryVal !== '' ? categoryVal : null,
+        badge: document.getElementById('dish-badge').value.trim() || null,
+        image_url: document.getElementById('dish-image').value.trim(),
+        description: document.getElementById('dish-desc').value.trim(),
+        is_available: true,
+        rating: 4.8
+      };
+
+      try {
+        await K.supabaseRest('menu_items', {
+          method: 'POST',
+          body: JSON.stringify(dishPayload)
+        });
+
+        alert(`Success! "${dishPayload.name}" has been added to the website menu!`);
+        document.getElementById('add-dish-form').reset();
+        await loadDishes();
+      } catch (err) {
+        console.error('Error adding dish:', err);
+        alert('Failed to add dish: ' + err.message);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Dish to Website Menu';
+      }
+    }
+
+    // Load & display existing dishes in Admin
+    async function loadDishes() {
+      const tbody = document.getElementById('admin-dishes-tbody');
+      if (!tbody) return;
+
+      try {
+        const dishes = await K.supabaseRest('menu_items?select=*,categories(name)&order=created_at.desc');
+        if (!dishes || dishes.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">No dishes in database.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = dishes.map(item => {
+          const catName = item.categories ? item.categories.name : 'General';
+          const img = item.image_url || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700';
+          return `
+            <tr>
+              <td><img src="${img}" style="width:48px; height:48px; object-fit:cover; border-radius:6px;" alt="${item.name}"></td>
+              <td><strong>${item.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${(item.description || '').slice(0, 45)}...</span></td>
+              <td><span style="font-size:0.85rem; color:var(--primary);">${catName}</span></td>
+              <td><strong>Rs ${Number(item.price).toLocaleString()}</strong></td>
+              <td>${item.badge ? `<span class="food-badge" style="position:static;">${item.badge}</span>` : '<span style="color:var(--text-muted); font-size:0.8rem;">-</span>'}</td>
+              <td>
+                <button class="btn btn-outline delete-dish-btn" data-id="${item.id}" data-name="${encodeURIComponent(item.name)}" style="padding:4px 10px; font-size:0.75rem; color:#ef4444; border-color:#ef4444;">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.querySelectorAll('.delete-dish-btn').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-id');
+            const name = decodeURIComponent(btn.getAttribute('data-name'));
+            if (confirm(`Are you sure you want to delete "${name}" from the menu?`)) {
+              try {
+                await K.supabaseRest(`menu_items?id=eq.${id}`, { method: 'DELETE' });
+                alert(`"${name}" deleted.`);
+                loadDishes();
+              } catch (err) {
+                alert('Error deleting dish: ' + err.message);
+              }
+            }
+          });
+        });
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#ef4444; padding:30px;">Error loading menu items: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Load Orders
+    async function loadAdminOrders() {
+      const tbody = document.getElementById('admin-orders-tbody');
+      try {
+        const orders = await K.supabaseRest('orders?select=*,order_items(*)&order=created_at.desc');
+        if (!orders || orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">No incoming orders yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = orders.map(ord => {
+          const itemsList = (ord.order_items || []).map(i => `${i.quantity}x ${i.item_name}`).join('<br>') || 'Feast';
+          const locDetails = ord.order_type === 'dine_in' 
+            ? `<strong>Dine-In</strong><br><span style="color:var(--primary); font-size:0.8rem;">Table: ${ord.table_number || 'Unassigned'}</span>`
+            : ord.order_type === 'delivery'
+            ? `<strong>Delivery</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${ord.delivery_address || 'No address'}</span>`
+            : `<strong>Takeout</strong>`;
+
+          return `
+            <tr>
+              <td><strong>#${ord.order_number}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${new Date(ord.created_at).toLocaleTimeString()}</span></td>
+              <td><strong>${ord.customer_name}</strong><br><span style="font-size:0.8rem; color:var(--text-secondary);">${ord.customer_phone}</span></td>
+              <td>${locDetails}</td>
+              <td style="font-size:0.85rem; line-height:1.4;">${itemsList}</td>
+              <td><strong>Rs ${Number(ord.total_amount).toLocaleString()}</strong></td>
+              <td><span class="badge-status status-${ord.status}">${ord.status}</span></td>
+              <td>
+                <select class="form-select status-selector" data-order-id="${ord.id}" style="padding:6px 10px; font-size:0.8rem;">
+                  <option value="pending" ${ord.status === 'pending' ? 'selected' : ''}>Pending</option>
+                  <option value="confirmed" ${ord.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                  <option value="preparing" ${ord.status === 'preparing' ? 'selected' : ''}>Preparing</option>
+                  <option value="ready" ${ord.status === 'ready' ? 'selected' : ''}>Ready / Served</option>
+                  <option value="delivered" ${ord.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                  <option value="cancelled" ${ord.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.querySelectorAll('.status-selector').forEach(sel => {
+          sel.addEventListener('change', async (e) => {
+            const id = e.target.getAttribute('data-order-id');
+            const newStatus = e.target.value;
+            await K.supabaseRest(`orders?id=eq.${id}`, {
+              method: 'PATCH',
+              body: JSON.stringify({ status: newStatus, updated_at: new Date() })
+            });
+            loadAdminOrders();
+          });
+        });
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#ef4444; padding:30px;">Error loading orders: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Load Reservations
+    async function loadReservations() {
+      const tbody = document.getElementById('admin-reservations-tbody');
+      try {
+        const reservations = await K.supabaseRest('reservations?order=created_at.desc');
+        if (!reservations || reservations.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">No reservations found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = reservations.map(res => `
+          <tr>
+            <td><strong>${res.guest_name}</strong></td>
+            <td>${res.guest_phone}<br><span style="font-size:0.8rem; color:var(--text-muted);">${res.guest_email || ''}</span></td>
+            <td>${res.reservation_date} at ${res.reservation_time}</td>
+            <td>${res.guests_count} Guests</td>
+            <td style="text-transform:capitalize;">${(res.seating_preference || '').replace('_', ' ')}</td>
+            <td style="font-size:0.85rem; color:var(--text-secondary);">${res.notes || 'None'}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#ef4444; padding:30px;">Error loading reservations: ${err.message}</td></tr>`;
+      }
+    }
+  </script>
+</body>
+</html>
